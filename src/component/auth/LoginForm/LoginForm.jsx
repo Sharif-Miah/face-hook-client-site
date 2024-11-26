@@ -1,5 +1,6 @@
+/* eslint-disable no-extra-boolean-cast */
 import { useForm } from 'react-hook-form';
-import Field from '../common/Field/Field';
+import Field from '../../common/Field/Field';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -55,7 +56,7 @@ const LoginForm = () => {
       </Field>
       <Field>
         <button
-          class='auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90'
+          className='auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90'
           type='submit'>
           Login
         </button>
