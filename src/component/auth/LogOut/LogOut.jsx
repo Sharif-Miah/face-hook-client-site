@@ -1,11 +1,14 @@
 import { useNavigate } from 'react-router';
 import LogoutIcon from '../../../assets/icons/logout.svg';
+import useAuth from '../../../hook/useAuth';
 
 const LogOut = () => {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const handleLogOut = () => {
-    navigate('/');
+    setAuth({});
+    navigate('/login');
   };
 
   return (

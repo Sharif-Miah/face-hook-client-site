@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Field from '../../common/Field/Field';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import useAuth from '../../../hook/useAuth';
 
 const LoginForm = () => {
   const {
@@ -10,6 +11,7 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { setAuth } = useAuth();
 
   const toistfy = () => toast.success('Successfully Login!');
 
@@ -18,13 +20,21 @@ const LoginForm = () => {
   const handleForm = (formData) => {
     console.log(formData);
 
+    // Make in api call
+    // Will Return Token And Loged In User Information
+
+    const user = { ...formData };
+    setAuth({ user });
+
     navigate('/');
     toistfy();
   };
 
   return (
     <form onSubmit={handleSubmit(handleForm)}>
-      <Field error={errors.email}>
+      <Field
+        error={errors.email}
+        label='email'>
         <input
           {...register('email', { required: 'Email is requerd' })}
           type='email'
@@ -36,7 +46,10 @@ const LoginForm = () => {
           } `}
         />
       </Field>
-      <Field error={errors.password}>
+
+      <Field
+        error={errors.password}
+        label='password'>
         <input
           {...register('password', {
             required: 'password is requerd',

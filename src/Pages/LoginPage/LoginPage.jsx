@@ -24,7 +24,7 @@ const LoginPage = () => {
             </div>
           </div>
           <div className='card'>
-            <h1 className='my-4 text-2xl font-bold'>Login</h1>
+            <h1 className='my-4 text-2xl font-bold text-center'>Login</h1>
             <LoginForm />
             <div className='py-4 lg:py-6'>
               <p className='text-center text-xs text-gray-600/95 lg:text-sm'>
