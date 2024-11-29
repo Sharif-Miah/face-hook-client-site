@@ -4,12 +4,14 @@ import Field from '../../common/Field/Field';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import useAuth from '../../../hook/useAuth';
+import axios from 'axios';
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
   const { setAuth } = useAuth();
 
@@ -17,17 +19,36 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const handleForm = (formData) => {
-    console.log(formData);
+  const handleForm = async (formData) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
+        formData
+      );
 
-    // Make in api call
-    // Will Return Token And Loged In User Information
+      if (response.status === 200) {
+        const { token, user } = response.data;
 
-    const user = { ...formData };
-    setAuth({ user });
+        if (token) {
+          const authToken = token.token;
+          const refreshToken = token.refreshToken;
 
-    navigate('/');
-    toistfy();
+          console.log(`Login Time auth token ${authToken}`);
+          setAuth({ user, authToken, refreshToken });
+
+          navigate('/');
+          toistfy();
+        }
+      }
+
+      // Will Return Token And Loged In User Information
+    } catch (error) {
+      console.error(error);
+      setError('root.random', {
+        type: 'random',
+        message: `User with email ${formData.email} not found!`,
+      });
+    }
   };
 
   return (
@@ -67,6 +88,9 @@ const LoginForm = () => {
           } `}
         />
       </Field>
+      <div>
+        <p className='my-2 text-red-500'>{errors?.root?.random?.message}</p>
+      </div>
       <Field>
         <button
           className='auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90'
