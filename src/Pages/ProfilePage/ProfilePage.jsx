@@ -5,6 +5,8 @@ import useAxios from '../../hook/useAxios';
 import useAuth from '../../hook/useAuth';
 import { actions } from '../../action';
 import useProfile from '../../hook/useProfile';
+import ProfileInfo from '../../profile/ProfileInfo';
+import MyPosts from '../../profile/MyPosts';
 
 const ProfilePage = () => {
   const { api } = useAxios();
@@ -44,10 +46,8 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <p>
-        Welcome to {state?.user?.firstName} {state?.user?.lastName}
-      </p>
-      <p>You have {state?.posts?.length} posts here</p>
+      <ProfileInfo />
+      <MyPosts />
     </div>
   );
 };
