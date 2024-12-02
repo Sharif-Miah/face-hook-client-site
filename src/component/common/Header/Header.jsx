@@ -45,7 +45,7 @@ const Header = () => {
                 {user?.firstName} {user?.lastName}
               </span>
               <img
-                className='max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px] rounded-full'
+                className='max-h-[32px] max-w-[32px] lg:max-h-[40px] lg:max-w-[60px] rounded-full'
                 src={`${import.meta.env.VITE_SERVER_BASE_URL}/${user.avatar}`}
                 alt='avater'
               />
