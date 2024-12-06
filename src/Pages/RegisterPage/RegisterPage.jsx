@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import RegisterForm from './RegisterForm';
+import Registation from '../../assets/icons/registration.svg';
 
 const RegisterPage = () => {
   return (
@@ -9,7 +10,7 @@ const RegisterPage = () => {
           <div>
             <img
               className='mb-12 h-60'
-              src='./assets/icons/registration.svg'
+              src={Registation}
               alt='auth_illustration'
             />
             <div>

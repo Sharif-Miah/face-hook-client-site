@@ -26,13 +26,12 @@ const RegisterForm = () => {
 
       if (response.status === 201) {
         navigate('/login');
-        toistfy();
       }
     } catch (error) {
       console.error(error);
       setError('root.random', {
         type: 'random',
-        message: `Something went wrong: ${error.message}`,
+        message: `Somthing went wrong ${error.message}`,
       });
     }
   };

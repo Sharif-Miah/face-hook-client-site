@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form';
 import Field from '../../common/Field/Field';
 import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import useAuth from '../../../hook/useAuth';
 import axios from 'axios';
 
@@ -15,11 +15,11 @@ const LoginForm = () => {
   } = useForm();
   const { setAuth } = useAuth();
 
-  const toistfy = () => toast.success('Successfully Login!');
+  // const toistfy = () => toast.success('Successfully Login!');
 
   const navigate = useNavigate();
 
-  const handleForm = async (formData) => {
+  const submitForm = async (formData) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
@@ -28,20 +28,16 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         const { token, user } = response.data;
-
         if (token) {
           const authToken = token.token;
           const refreshToken = token.refreshToken;
 
-          console.log(`Login Time auth token ${authToken}`);
+          console.log(`Login time auth token: ${authToken}`);
           setAuth({ user, authToken, refreshToken });
 
           navigate('/');
-          toistfy();
         }
       }
-
-      // Will Return Token And Loged In User Information
     } catch (error) {
       console.error(error);
       setError('root.random', {
@@ -52,7 +48,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleForm)}>
+    <form onSubmit={handleSubmit(submitForm)}>
       <Field
         error={errors.email}
         label='email'>
