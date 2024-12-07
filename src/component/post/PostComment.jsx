@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PostCommentsList from './PostCommentsList';
-import { useAvatar } from '../../hook/useAvatar';
+
 import useAxios from '../../hook/useAxios';
 import useAuth from '../../hook/useAuth';
 
