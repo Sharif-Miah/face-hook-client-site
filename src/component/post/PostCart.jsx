@@ -12,7 +12,7 @@ const PostCart = ({ post }) => {
         content={post?.content}
       />
       <PostAction
-        postId={post?.id}
+        post={post}
         postComments={post?.comments?.length}
       />
       <PostComment post={post} />

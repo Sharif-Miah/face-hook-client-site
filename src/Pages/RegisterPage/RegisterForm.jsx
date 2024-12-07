@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Field from '../../component/common/Field/Field';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
   const {
@@ -14,7 +14,7 @@ const RegisterForm = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  const toistfy = () => toast.success('Successfully Register!');
+  // const toistfy = () => toast.success('Successfully Register!');
 
   const handleForm = async (formData) => {
     console.log(formData);
