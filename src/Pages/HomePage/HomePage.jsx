@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 
 import useAxios from '../../hook/useAxios';
 import PostList from '../../component/post/PostList';
 import { actions } from '../../action';
-import { initialState, postReducer } from '../../reducers/postReducer';
+
+import usePost from '../../hook/usePost';
+import NewPost from '../../component/post/NewPost';
 
 const HomePage = () => {
-  const [state, dispatch] = useReducer(postReducer, initialState);
+  const { state, dispatch } = usePost();
   const { api } = useAxios();
 
   useEffect(() => {
@@ -46,6 +48,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <NewPost />
       <PostList posts={state?.posts} />
     </div>
   );
