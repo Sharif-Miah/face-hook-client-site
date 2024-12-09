@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import useAuth from '../../hook/useAuth';
 import PostEntry from './PostEntry';
+import useProfile from '../../hook/useProfile';
 
 const NewPost = () => {
   const [showPostEntry, setShowPostEntry] = useState(false);
   const { auth } = useAuth();
+  const { state: profile } = useProfile();
+
+  const user = profile?.user ?? auth?.user;
 
   return (
     <>
@@ -15,9 +19,7 @@ const NewPost = () => {
           <div className='flex-center mb-3 gap-2 lg:gap-4'>
             <img
               className='max-w-10 max-h-10 rounded-full lg:max-h-[58px] lg:max-w-[58px]'
-              src={`${import.meta.env.VITE_SERVER_BASE_URL}/${
-                auth?.user?.avatar
-              }`}
+              src={`${import.meta.env.VITE_SERVER_BASE_URL}/${user.avatar}`}
               alt='avatar'
             />
 

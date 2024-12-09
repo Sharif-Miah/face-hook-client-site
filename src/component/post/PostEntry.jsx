@@ -18,7 +18,6 @@ const PostEntry = ({ onCreate }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm();
 
   const user = profile?.user ?? auth?.user;
