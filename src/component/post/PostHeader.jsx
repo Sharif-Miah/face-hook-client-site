@@ -58,7 +58,7 @@ const PostHeader = ({ post }) => {
               alt='time'
             />
             <span className='text-sm text-gray-400 lg:text-base'>
-              {`${getDateDifferntFormNow(post?.createAt)}ago`}
+              {`${getDateDifferntFormNow(post?.createAt)} ago`}
             </span>
           </div>
         </div>
