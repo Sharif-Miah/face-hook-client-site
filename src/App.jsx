@@ -6,6 +6,7 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import ProfilePage from './Pages/ProfilePage/ProfilePage';
 import NotFound from './Pages/NotFound/NotFound';
 import PrivateRoute from './routes/PrivateRoute';
+import PostEdit from './component/post/PostEdit';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
           <Route
             path='/me'
             element={<ProfilePage />}
+          />
+          <Route
+            path='/edit'
+            element={<PostEdit />}
           />
         </Route>
 
