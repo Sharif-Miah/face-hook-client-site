@@ -7,6 +7,7 @@ import ProfilePage from './Pages/ProfilePage/ProfilePage';
 import NotFound from './Pages/NotFound/NotFound';
 import PrivateRoute from './routes/PrivateRoute';
 import PostEdit from './component/post/PostEdit';
+// import PostEdit from './component/post/PostEdit';
 
 function App() {
   return (

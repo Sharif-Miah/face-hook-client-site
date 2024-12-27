@@ -7,12 +7,24 @@ import useProfile from '../../hook/useProfile';
 import AddPhotoIcon from '../../assets/icons/addPhoto.svg';
 import Field from '../common/Field/Field';
 import { actions } from '../../action';
+import { useState } from 'react';
 
 const PostEntry = ({ onCreate }) => {
   const { auth } = useAuth();
   const { dispatch } = usePost();
   const { api } = useAxios();
   const { state: profile } = useProfile();
+  const [imagePreviwe, setImagePreviwe] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const previweUrl = URL.createObjectURL(file);
+      setImagePreviwe(previweUrl);
+    } else {
+      setImagePreviwe(null);
+    }
+  };
 
   const {
     register,
@@ -80,6 +92,8 @@ const PostEntry = ({ onCreate }) => {
             type='file'
             name='photo'
             id='photo'
+            accept='image/*'
+            onChange={handleImageChange}
             className='hidden'
           />
         </div>
@@ -96,6 +110,16 @@ const PostEntry = ({ onCreate }) => {
             placeholder='Share your thoughts...'
             className='h-[120px] w-full bg-transparent focus:outline-none lg:h-[160px]'></textarea>
         </Field>
+        {imagePreviwe && (
+          <img
+            {...register('image')}
+            src={imagePreviwe}
+            name='image'
+            id='image'
+            alt='image'
+            className='w-1/2 mx-auto'
+          />
+        )}
         <div className='border-t border-[#3F3F3F] pt-4 lg:pt-6'>
           <button
             className='auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90'
