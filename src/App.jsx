@@ -24,7 +24,7 @@ function App() {
             element={<ProfilePage />}
           />
           <Route
-            path='/edit'
+            path='/edit/:id'
             element={<PostEdit />}
           />
         </Route>

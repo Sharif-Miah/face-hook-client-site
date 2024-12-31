@@ -11,12 +11,12 @@ import useAuth from '../../hook/useAuth';
 import usePost from '../../hook/usePost';
 import { actions } from '../../action';
 import useAxios from '../../hook/useAxios';
-import PostEdit from './PostEdit';
+
 import { Link } from 'react-router';
 
 const PostHeader = ({ post }) => {
   const [showModal, setShowModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  // const [editModal, setEditModal] = useState(false);
   const { avatarURL } = useAvatar(post);
   const { auth } = useAuth();
   const { dispatch } = usePost();
@@ -80,10 +80,8 @@ const PostHeader = ({ post }) => {
 
           {showModal && (
             <div className='action-modal-container'>
-              <Link to='/edit'>
-                <button
-                  className='action-menu-item hover:text-lwsGreen'
-                  onClick={() => setEditModal(true)}>
+              <Link to={`/edit/${post.id}`}>
+                <button className='action-menu-item hover:text-lwsGreen'>
                   <img
                     src={Edit}
                     alt='Edit'

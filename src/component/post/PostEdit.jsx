@@ -11,20 +11,21 @@ import { useForm } from 'react-hook-form';
 import { useRef } from 'react';
 import { useParams } from 'react-router';
 
-const PostEdit = ({ post }) => {
+const PostEdit = () => {
   const { id } = useParams();
-
-  console.log(id);
+  // console.log(id);
 
   const { auth } = useAuth();
-  const { dispatch } = usePost();
-  const { api } = useAxios();
+  const { state, dispatch } = usePost();
+  // const { api } = useAxios();
   const { state: profile } = useProfile();
   const fileUploadRef = useRef();
 
-  const user = profile?.user ?? auth?.user;
+  const posts = state?.posts;
 
-  // console.log(post);
+  const singlePost = posts.find((post) => post.id === id);
+
+  const user = profile?.user ?? auth?.user;
 
   const {
     register,
@@ -44,9 +45,7 @@ const PostEdit = ({ post }) => {
             <h6 className='mb-3 text-center text-lg font-bold lg:text-xl'>
               Edit Post
             </h6>
-            <button
-              onClick={() => setEditModal(false)}
-              className='absolute right-3 top-3 transition-all hover:opacity-80 active:scale-95 active:opacity-70'>
+            <button className='absolute right-3 top-3 transition-all hover:opacity-80 active:scale-95 active:opacity-70'>
               <img
                 src={CloseIcon}
                 alt='close'
@@ -98,7 +97,7 @@ const PostEdit = ({ post }) => {
                   {...register('postEdit', {
                     required: 'Adding some text is mandatory!',
                   })}
-                  // value={post.content}
+                  value={singlePost.content}
                   name='postEdit'
                   id='postEdit'
                   placeholder='Share your thoughts...'
@@ -107,13 +106,13 @@ const PostEdit = ({ post }) => {
 
               <div className='mx-auto mb-4 flex max-w-[90%] items-center justify-center lg:mb-6'>
                 <div className='relative'>
-                  {/* {post.image && (
+                  {singlePost.image && (
                     <img
                       className='max-w-full'
-                      src={post?.image}
+                      src={singlePost?.image}
                       alt='image'
                     />
-                  )} */}
+                  )}
                   <button className='absolute right-2 top-2 transition-all hover:opacity-80 active:scale-95 active:opacity-70'>
                     <img
                       src={CloseIcon}
