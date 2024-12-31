@@ -7,22 +7,44 @@ import useProfile from '../../hook/useProfile';
 import AddPhotoIcon from '../../assets/icons/addPhoto.svg';
 import Field from '../common/Field/Field';
 import { actions } from '../../action';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 const PostEntry = ({ onCreate }) => {
   const { auth } = useAuth();
-  const { dispatch } = usePost();
+  const { state, dispatch } = usePost();
   const { api } = useAxios();
   const { state: profile } = useProfile();
-  const [imagePreviwe, setImagePreviwe] = useState(null);
+  const fileUploadRef = useRef();
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const previweUrl = URL.createObjectURL(file);
-      setImagePreviwe(previweUrl);
-    } else {
-      setImagePreviwe(null);
+  // const [imagePreviwe, setImagePreviwe] = useState(null);
+
+  const handleImageUpload = (event) => {
+    event.preventDefault();
+    fileUploadRef.current.addEventListener('change', updateImageDisplay);
+    fileUploadRef.current.click();
+  };
+
+  const updateImageDisplay = async () => {
+    try {
+      const formData = new FormData();
+
+      for (const file of fileUploadRef.current.files) {
+        formData.append('image', file);
+      }
+
+      const response = await api.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/posts`,
+        { formData }
+      );
+
+      if (response.status === 200) {
+        dispatch({ type: actions.profile.IMAGE_UPDATED, data: response.data });
+      }
+    } catch (error) {
+      dispatch({
+        type: actions.profile.DATA_FETCH_ERROR,
+        error: error.message,
+      });
     }
   };
 
@@ -93,7 +115,9 @@ const PostEntry = ({ onCreate }) => {
             name='photo'
             id='photo'
             accept='image/*'
-            onChange={handleImageChange}
+            {...register('image')}
+            onChange={handleImageUpload}
+            ref={fileUploadRef}
             className='hidden'
           />
         </div>
@@ -110,13 +134,12 @@ const PostEntry = ({ onCreate }) => {
             placeholder='Share your thoughts...'
             className='h-[120px] w-full bg-transparent focus:outline-none lg:h-[160px]'></textarea>
         </Field>
-        {imagePreviwe && (
+        {state.image && (
           <img
-            {...register('image')}
-            src={imagePreviwe}
+            src={`${import.meta.env.VITE_SERVER_BASE_URL}/${state.image}`}
             name='image'
             id='image'
-            alt='image'
+            alt='Selected'
             className='w-1/2 mx-auto'
           />
         )}
